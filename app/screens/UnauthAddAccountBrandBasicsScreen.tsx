@@ -59,7 +59,7 @@ export const UnauthAddAccountBrandBasicsScreen: FC<UnauthAddAccountBrandBasicsSc
 
   const handleCloseCancel = () => {
     brandAccount.resetBrandAccount();
-    inputStore.reset();
+    // inputStore.reset();
    
     navigation.goBack();
   }
