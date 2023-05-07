@@ -131,7 +131,7 @@ export const UnauthEngageDashboardScreen: FC<UnauthEngageDashboardScreenProps> =
           {brandAccountList.inputList.length > 0 ? (
             brandAccountList.inputList.map((brandAccount) => (
               <Card
-                key={brandAccount.new_id} // Make sure to provide a unique key for each card
+                key={brandAccount.new_id} 
                 style={$cardStyle}
                 HeadingComponent={
                   <View style={$summaryBodyCardHeader}>
