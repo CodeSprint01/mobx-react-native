@@ -28,7 +28,10 @@ export const InputStoreModel = types
         const existingInput = store.inputList.find((i) => i.new_id === input.new_id);
         console.log(existingInput)
         if (existingInput) {
-          store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
+          if(store.totalFollowers>0){
+            store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
+          }
+         
           store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
           Object.assign(existingInput, input);
         } else {
@@ -38,11 +41,15 @@ export const InputStoreModel = types
     },
     reset() {
       store.inputList.clear();
+      store.totalFollowers=0;
     },
     removeInput(id: string) {
       const index = store.inputList.findIndex((input) => input.new_id === id);
       if (index >= 0) {
-        store.totalFollowers-=parseInt(store.inputList[index].new_socialTwitterFollowers)
+        if(store.totalFollowers>0){
+          store.totalFollowers-=parseInt(store.inputList[index].new_socialTwitterFollowers)
+        }
+      
         store.inputList.splice(index, 1);
       }
       // store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
