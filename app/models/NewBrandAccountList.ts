@@ -31,11 +31,16 @@ export const InputStoreModel = types
           if(store.totalFollowers>0){
             store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
           }
-         
+         if(input.new_socialTwitterFollowers!==undefined){
           store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
+         }
+         
           Object.assign(existingInput, input);
         } else {
-          store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
+          if(input.new_socialTwitterFollowers!==undefined){
+            store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
+          }
+          
           store.inputList.push(input);
         }
     },
