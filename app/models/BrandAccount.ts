@@ -94,10 +94,13 @@ export const BrandAccountModel = types
       const response = await api.getSocialTwitterFollowers(value)
       console.log("Twitter: " + value);
       if(response){
-
+       console.log("response")
+       console.log(response)
       const followers = JSON.parse(response).public_metrics.followers_count.toString();
       /* store.setProp("socialTwitterFollowers", followers.toString()); */
       // this.setBrandAccountSocialFacebookPage(followers);
+      console.log("Follower response")
+
       this.setBrandAccountSocialTwitterFollowers(followers);
       // console.log("Followers:" + store.socialTwitterFollowers);
       console.log("Followers String:" + followers);
@@ -105,7 +108,7 @@ export const BrandAccountModel = types
       return followers;
 
       }
-
+      this.setBrandAccountSocialTwitterFollowers('0');
       return "";
     },
   }))

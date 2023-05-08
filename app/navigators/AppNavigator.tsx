@@ -30,6 +30,8 @@ import {
   UnauthAddAccountBrandFinancialsScreen,
   UnauthAddAccountBrandGoalsScreen,
   UnauthAddAccountBrandReviewScreen,
+  UnauthAddBusinessAccountWaitlist_IncompleteScreen,
+  UnauthAddBusinessAccountWaitlist_CompleteScreen,
 } from "../screens"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
@@ -57,6 +59,8 @@ export type AppStackParamList = {
   UnauthAddAccountBrandFinancials: undefined
   UnauthAddAccountBrandGoals: undefined
   UnauthAddAccountBrandReview: undefined
+  UnauthAddBusinessAccountWaitlist_IncompleteScreen:undefined
+  UnauthAddBusinessAccountWaitlist_CompleteScreen:undefined
   Landing: undefined
   Login: undefined // @demo remove-current-line
   Welcome: undefined
@@ -122,6 +126,8 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name="UnauthAddAccountBrandFinancials" component={UnauthAddAccountBrandFinancialsScreen} />
       <Stack.Screen name="UnauthAddAccountBrandGoals" component={UnauthAddAccountBrandGoalsScreen} />
       <Stack.Screen name="UnauthAddAccountBrandReview" component={UnauthAddAccountBrandReviewScreen} />
+      <Stack.Screen name="UnauthAddBusinessAccountWaitlist_IncompleteScreen" component={UnauthAddBusinessAccountWaitlist_IncompleteScreen} />
+      <Stack.Screen name="UnauthAddBusinessAccountWaitlist_CompleteScreen" component={UnauthAddBusinessAccountWaitlist_CompleteScreen} />
     </Stack.Navigator>
   )
 })

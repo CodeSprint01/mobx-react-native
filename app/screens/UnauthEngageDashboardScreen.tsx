@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import { useStores } from "../models"
-import React, { FC, useState } from "react"
-import { View, StyleSheet, ViewStyle, TouchableOpacity, Alert } from "react-native"
+import React, { FC, useState, useEffect } from "react"
+import { View, StyleSheet, ViewStyle, TouchableOpacity, Alert, Image } from "react-native"
 import { Button, Card, Screen, Text } from "../components"
 // import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
@@ -24,6 +24,22 @@ export const UnauthEngageDashboardScreen: FC<UnauthEngageDashboardScreenProps> =
     const { navigation } = _props
     const brandAccountStore = BrandAccountListModel.create()
     const { brandAccount, brandAccountList } = useStores()
+    // const[totalF,setTotalF]=useState(0);
+    // useEffect(() => {
+    //   // const total = brandAccountList.inputList.reduce(
+    //   //   (previousScore, currentScore)=>{previousScore+parseInt(currentScore.new_socialTwitterFollowers)}
+    //   //   );
+    //   console.log("inside useEffect")
+    //   const total = brandAccountList.inputList.reduce((accumulator, currentValue) => {
+    //     console.log("inside reduce")
+    //     console.log(parseInt(currentValue.new_socialTwitterFollowers))
+    //     return accumulator + parseInt(currentValue.new_socialTwitterFollowers);
+    //   }, 0);
+    //   console.log("total")
+    //     console.log(total)
+    //     setTotalF(total)
+    // }, [brandAccountList.inputList])
+
     // const handleDeleteAccount = (id: string) => {
     //   inputStore.removeInput(id)
     // }
@@ -36,7 +52,7 @@ export const UnauthEngageDashboardScreen: FC<UnauthEngageDashboardScreenProps> =
         },
         {
           text: "Delete",
-          onPress: () =>  brandAccountList.removeInput(id),
+          onPress: () => brandAccountList.removeInput(id),
         },
       ])
     }
@@ -76,7 +92,12 @@ export const UnauthEngageDashboardScreen: FC<UnauthEngageDashboardScreenProps> =
             </Text>
           </View>
           <View style={$dashboardContentBody}>
-            <Text style={styles.textHeroValuation}>- - - -</Text>
+            {brandAccountList.totalFollowers === 0 ? (
+              <Text style={styles.textHeroValuation}>- - - -</Text>
+            ) : (
+              <Text style={styles.textHeroValuation}>{brandAccountList.totalFollowers}</Text>
+            )}
+
             <Text style={styles.textHeroBody}>Members</Text>
           </View>
         </View>
@@ -98,30 +119,50 @@ export const UnauthEngageDashboardScreen: FC<UnauthEngageDashboardScreenProps> =
               <View>
                 <View style={$summaryBodyContent}>
                   <Text>Followers</Text>
-
-                  <Text>- - - - -</Text>
+                  {brandAccountList.totalFollowers === 0 ? (
+                    <Text>- - - -</Text>
+                  ) : (
+                    <Text>{brandAccountList.totalFollowers}</Text>
+                  )}
                 </View>
               </View>
             }
           />
-          { brandAccountList.inputList.length > 0 ? (
+          {brandAccountList.inputList.length > 0 ? (
             brandAccountList.inputList.map((brandAccount) => (
               <Card
-                key={brandAccount.new_id} // Make sure to provide a unique key for each card
+                key={brandAccount.new_id} 
                 style={$cardStyle}
                 HeadingComponent={
                   <View style={$summaryBodyCardHeader}>
-                    <Text style={{ color: "#2962FF", fontSize: 20 }}>{brandAccount.new_name}</Text>
+                    <View>
+                      <Text style={{ color: "#2962FF", fontSize: 20 }}>
+                        {brandAccount.new_name}
+                      </Text>
+                      <Text style={{ color: "#777777", fontSize: 15 }}>Personal Brand</Text>
+                    </View>
+
                     <View style={$CardButtons}>
+                      <TouchableOpacity
+                        onPress={() => handleEditAccount(brandAccount)}
+                        style={{ ...$CardButton, borderColor: "#2962FF" }}
+                      >
+                        <Image
+                          source={require("../../assets/icons/edit.png")}
+                          style={{ width: 26 }}
+                        />
+                      </TouchableOpacity>
+
                       <TouchableOpacity
                         onPress={() =>
                           handleDeleteAccount(brandAccount.new_name, brandAccount.new_id)
                         }
+                        style={{ ...$CardButton, borderColor: "#F22E2E" }}
                       >
-                        <MaterialIcons name="delete-outline" size={24} color="black" />
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => handleEditAccount(brandAccount)}>
-                        <Feather name="edit-2" size={24} color="black" />
+                        <Image
+                          source={require("../../assets/icons/delete.png")}
+                          style={{ width: 26 }}
+                        />
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -250,16 +291,25 @@ const $summaryBodyHeader: ViewStyle = {
   borderBottomColor: colors.palette.grey300,
 }
 const $summaryBodyCardHeader: ViewStyle = {
-  /* marginBottom: 20, */
+  //  marginBottom: 20,
   flexDirection: "row",
   justifyContent: "space-between",
   paddingTop: 5,
-  height: 50,
+  height: 60,
   borderBottomWidth: 1,
   borderBottomColor: colors.palette.grey300,
 }
 const $CardButtons: ViewStyle = {
   flexDirection: "row",
+  // paddingRight:20,
+}
+const $CardButton: ViewStyle = {
+  borderWidth: 2,
+  borderRadius: 5,
+  paddingVertical: 5,
+  paddingHorizontal: 20,
+  marginRight: 10,
+  height: 43,
 }
 const $summaryBodyContent: ViewStyle = {
   /* marginBottom: 20, */
