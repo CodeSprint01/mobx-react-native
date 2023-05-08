@@ -2,17 +2,17 @@ import { observer } from "mobx-react-lite"
 import { useStores } from "../models"
 import React, { FC } from "react"
 
-import { TextStyle, View, ViewStyle, StyleSheet, TextInput } from "react-native"
+import { TextStyle, View, ViewStyle, StyleSheet } from "react-native"
 import { Button, Screen, Text } from "../components"
 
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 
-interface UnauthAddBusinessAccountWaitlist_IncompleteScreenProps
-  extends AppStackScreenProps<"UnauthAddBusinessAccountWaitlist_IncompleteScreen"> {}
+interface UnauthAddBusinessAccountWaitlist_CompleteScreenProps
+  extends AppStackScreenProps<"UnauthAddBusinessAccountWaitlist_CompleteScreen"> {}
 
-export const UnauthAddBusinessAccountWaitlist_IncompleteScreen: FC<UnauthAddBusinessAccountWaitlist_IncompleteScreenProps> =
-  observer(function UnauthAddBusinessAccountWaitlist_IncompleteScreen(_props) {
+export const UnauthAddBusinessAccountWaitlist_CompleteScreen: FC<UnauthAddBusinessAccountWaitlist_CompleteScreenProps> =
+  observer(function UnauthAddBusinessAccountWaitlist_CompleteScreen(_props) {
     const { navigation } = _props
     const { brandAccount, brandAccountList } = useStores()
 
@@ -33,31 +33,18 @@ export const UnauthAddBusinessAccountWaitlist_IncompleteScreen: FC<UnauthAddBusi
         <View testID="Beautiful" style={$secondarySlide}>
           <View style={$brandStyle}>
             <Text testID="login-heading" preset="heading" style={styles.heading}>
-              Support For Business Accounts Is Coming Soon
-            </Text>
-            <Text style={styles.text}>
-              Join the waitlist for valuing and monitoring business accounts
+              Congratulations! You’ve Been Added To The Waitlist
             </Text>
           </View>
         </View>
-        <View style={styles.textInputContainer}>
-          <TextInput style={styles.textInput} placeholder="Enter your best email" />
-        </View>
-        <View style={$buttonSubmitStyle}>
+        <View style={$buttonsStyle}>
           <Button
             testID="landing-button"
             style={$tapButton}
             preset="reversed"
-            onPress={() => navigation.navigate("UnauthAddBusinessAccountWaitlist_CompleteScreen")}
+            onPress={() => navigation.navigate("UnauthEngageDashboard")}
           >
-            Submit
-          </Button>
-        </View>
-        <View style={$buttonCancelStyle}>
-        <Button testID="landing-button" style={$tapCancelButton} preset="default"
-         onPress={() => navigation.navigate("UnauthAddAccountLanding")}
-        >
-            Cancel
+            Go To Dashboard
           </Button>
         </View>
       </Screen>
@@ -89,27 +76,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
     maxWidth: 300,
     textAlign: "center",
-    marginBottom: 10,
   },
   wrapper: {},
-  textInputContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-
-  },
-  textInput: {
-    height: 50,
-    borderColor: "#2962FF",
-    borderWidth: 1,
-    borderRadius: 3,
-    paddingLeft: 10,
-    width: "80%",
-  },
 })
 
 const $secondarySlide: ViewStyle = {
@@ -125,29 +97,14 @@ const $tapButton: ViewStyle = {
   width: 240,
 }
 
-
-const $tapCancelButton: ViewStyle = {
-  alignItems: "center",
-  marginTop: spacing.extraSmall,
-  flexDirection: "column",
-  width: 240,
-
-};
 const $brandStyle: ViewStyle = {
-  alignItems: "center",
-  height: 200,
-  width: "80%",
-  marginTop: 50,
-}
-const $buttonSubmitStyle: ViewStyle = {
+    alignItems: "center",
+    height: 200,
+    width: "80%",
+    marginTop: 50,
+  }
+const $buttonsStyle: ViewStyle = {
   height: 180,
-  marginTop: 15,
-  justifyContent: "space-between",
-  alignItems: "center",
-}
-const $buttonCancelStyle: ViewStyle = {
-  height: 180,
-  marginTop: 90,
   justifyContent: "space-between",
   alignItems: "center",
 }

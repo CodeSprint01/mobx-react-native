@@ -8,6 +8,7 @@ export * from "./UnauthAddAccountBrandFinancialsScreen"
 export * from "./UnauthAddAccountBrandGoalsScreen"
 export * from "./UnauthAddAccountBrandReviewScreen"
 export * from "./UnauthAddBusinessAccountWaitlist_IncompleteScreen"
+export * from "./UnauthAddBusinessAccountWaitlist_CompleteScreen"
 export * from "./WelcomeScreen"
 export * from "./LandingScreen"
 // @demo remove-block-start
