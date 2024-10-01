@@ -20,7 +20,7 @@ export const UnauthAddAccountBrandBasicsScreen: FC<UnauthAddAccountBrandBasicsSc
 ) {
   const { navigation } = _props;
   const brandAccountStore = BrandAccountListModel.create();
-  const { brandAccount, brandAccountList,inputStore  } = useStores();
+  const { brandAccount, brandAccountList } = useStores();
  
   const placeholder = {
     label: 'Select a brand category...',
@@ -59,7 +59,7 @@ export const UnauthAddAccountBrandBasicsScreen: FC<UnauthAddAccountBrandBasicsSc
 
   const handleCloseCancel = () => {
     brandAccount.resetBrandAccount();
-    // inputStore.reset();
+    brandAccountList.reset();
    
     navigation.goBack();
   }
