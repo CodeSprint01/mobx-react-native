@@ -67,6 +67,15 @@ export const UnauthAddAccountLandingScreen: FC<UnauthAddAccountLandingScreenProp
                 {/* <Icon icon="circlePlus" color={colors.palette.neutral100} size={18} /> */}
                 Add A Brand
               </Button>
+              <Button
+                testID="landing-button"
+                style={$tapButton}
+                preset="reversed"
+                onPress={() =>  navigation.navigate("UnauthAddBusinessAccountWaitlist_IncompleteScreen")}
+              >
+                {/* <Icon icon="circlePlus" color={colors.palette.neutral100} size={18} /> */}
+                Add A Business
+              </Button>
             </View>
       
      

@@ -20,6 +20,7 @@ export const InputStoreModel = types
   .model('InputStore')
   .props({
     inputList: types.optional(types.array(InputModel), []),
+    totalFollowers:0
   })
   .actions((store) => ({
     addInput(input: { new_id:string;new_name: string; new_websiteUrl: string;new_category:string;new_keywordPrimary:string;new_keywordSecondary:string;new_socialTwitter:string;
@@ -27,20 +28,36 @@ export const InputStoreModel = types
         const existingInput = store.inputList.find((i) => i.new_id === input.new_id);
         console.log(existingInput)
         if (existingInput) {
+          if(store.totalFollowers>0){
+            store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
+          }
+         if(input.new_socialTwitterFollowers!==undefined){
+          store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
+         }
          
           Object.assign(existingInput, input);
         } else {
+          if(input.new_socialTwitterFollowers!==undefined){
+            store.totalFollowers+=parseInt(input.new_socialTwitterFollowers)
+          }
+          
           store.inputList.push(input);
         }
     },
     reset() {
       store.inputList.clear();
+      store.totalFollowers=0;
     },
     removeInput(id: string) {
       const index = store.inputList.findIndex((input) => input.new_id === id);
       if (index >= 0) {
+        if(store.totalFollowers>0){
+          store.totalFollowers-=parseInt(store.inputList[index].new_socialTwitterFollowers)
+        }
+      
         store.inputList.splice(index, 1);
       }
+      // store.totalFollowers-=parseInt(existingInput.new_socialTwitterFollowers)
     },
   }));
 
